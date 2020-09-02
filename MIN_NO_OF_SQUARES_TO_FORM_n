@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+
+int dp[10000];
+int minsquare(vector<int> sq,int N)
+{
+    
+    
+    if(N==0)
+       return 0;
+     
+     
+    int minc = INT_MAX;
+    
+    for(int i=0;i<sq.size();i++)
+    {
+       
+        
+        if(N-sq[i]>=0)
+        {
+            
+            
+             
+        int subans = 0;
+        
+        
+            if(dp[N-sq[i]]!=-1)
+            {
+                
+                subans = dp[N-sq[i]];
+                
+                
+            }
+            else
+            {
+               subans = minsquare(sq,N-sq[i]);
+                
+                
+            }
+           
+           if(subans!=INT_MAX && subans+1<minc)
+              minc = subans + 1;
+      
+      
+        }
+        
+    }
+    
+    return dp[N]=minc;
+    
+  
+}
+int main()
+ {
+	int T;
+
+	cin>>T;
+	
+	while(T--)
+	{
+	    
+	   int N;
+	   cin>>N;
+	   
+	   
+	   memset(dp,-1,10000);
+	  
+	  vector<int> sq;
+	  
+	  
+	  
+	  for(int i=1;i<=N;i++)
+	  {
+	      if(i*i<=N)
+	        sq.push_back(i*i);
+	     
+	  }
+	   
+	 
+	 
+	 
+	 
+	 int res = minsquare(sq,N);
+	 
+
+  cout<<res;
+  
+  
+  
+  cout<<endl;
+	    
+	}
+	return 0;
+}
